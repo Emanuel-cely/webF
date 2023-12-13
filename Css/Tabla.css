@@ -1,0 +1,35 @@
+table{
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  max-width: 90%;
+  margin: 0 auto; 
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  border-style: inset;
+
+  padding-top: 10px;
+  padding-bottom: 20px;
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+body {
+  font-family: sans-serif;
+  background-repeat: no-repeat;
+  background-attachment: fixed; 
+  background-size: 100% 100%;
+}
+
+h2{
+  text-align: center;
+}

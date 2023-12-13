@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./grafico.css">
+    <title>Agricampo</title>
+    
+</head>
+<body>
+    <div class="fullscreen-container">
+        <video loop muted autoplay poster="dist/img/office.jpg" class="fullscreen-video">
+            <source src="../video/FLYING OVER COLOMBIA (4K UHD) - Relaxing Music Along With Beautiful Nature Videos - 4K Video UltraHD.mp4" type="video/mp4">
+            
+        </video>
+    </div>
+    <h1>Gráficos de cantidad de registros y mensajes de Soporte</h1>
+    <div class="row" >
+        <div class="column">
+            <h2>Gráficos de cantidad de registros totales</h2>
+            <canvas id="polarChart" class="chart-container"></canvas>
+        </div>
+        <div class="column">
+            <h2>Gráfico de Mensajes de Soporte</h2>
+            <canvas id="doughnutChart" class="chart-container"></canvas>
+        </div>
+    </div>
+
+    <h1>Gráficos de cantidad de logins y nuevos productos</h1>
+    <div class="row"  >
+        <div class="column">
+            <h2>Gráfico de Logins</h2>
+            <canvas id="barChart" class="chart-container"></canvas>
+        </div>
+        <div class="column">
+            <h2>Gráfico solicitud de nuevos productos</h2>
+            <canvas id="radarChart" class="chart-container"></canvas>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <script>
+    
+        $(document).ready(function() {
+            
+            $.ajax({
+                url: "grafico.php",
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    var ctxPolar = document.getElementById("polarChart").getContext("2d");
+                    var polarChart = new Chart(ctxPolar, {
+                       
+                        type: "polarArea",
+                        data: {
+                            labels: ["Total"],
+                            datasets: [{
+                                label: "Cantidad de registros (Polar)",
+                                data: [data.data_tabla1.length],
+                                backgroundColor: ["#008000"],
+                            }]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: "Gráfico de registros totales"
+                            }
+                        }
+                    });
+                }
+            });
+
+           
+            $.ajax({
+                url: "grafico.php",
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    var ctxDoughnut = document.getElementById("doughnutChart").getContext("2d");
+                    var doughnutChart = new Chart(ctxDoughnut, {
+                      
+                        type: "bar",
+                        data: {
+                            labels: ["Total"],
+                            datasets: [{
+                                label: "Soporte",
+                                data: [data.data_tabla2.length],
+                                borderColor: ["#36A2EB"],
+                            }]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: "Gráfico de Mensajes de Soporte"
+                            }
+                        }
+                    });
+                }
+            });
+
+          
+            $.ajax({
+                url: "grafico.php",
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    var ctxBar = document.getElementById("barChart").getContext("2d");
+                    var barChart = new Chart(ctxBar, {
+                       
+                        type: "radar" ,
+                        data: {
+                            labels: ["Total"],
+                            datasets: [{
+                                label: "Logins",
+                                data: [data.data_tabla3.length],
+                                backgroundColor: ["#9BD0F5"],
+                            }]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: "Gráfico de Logins"
+                            }
+                        }
+                    });
+                }
+            });
+
+            
+            $.ajax({
+                url: "grafico.php",
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    var ctxRadar = document.getElementById("radarChart").getContext("2d");
+                    var radarChart = new Chart(ctxRadar, {
+                       
+                        type: "line",
+                        data: {
+                            labels: ["Total"],
+                            datasets: [{
+                                label: "Productos nuevos solicitados",
+                                data: [data.data_tabla4.length],
+                                borderColor: ["#ffce56"],
+                            }]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: "Gráfico de cantidad de Productos nuevos solicitados"
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
